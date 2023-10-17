@@ -15,13 +15,10 @@ def home(request):
     return render(request, 'Agro_app/home.html')
 
 #@login_required
-def products(request):
-    return render(request, 'Agro_app/products.html')
-
 class ProductList(ListView):
     model = agricultural_product 
 
-class ProductoCrear(SuccessMessageMixin, CreateView): 
+class ProductoCreate(SuccessMessageMixin, CreateView): 
     model = agricultural_product 
     form = agricultural_product
     fields = "__all__" 
@@ -29,7 +26,7 @@ class ProductoCrear(SuccessMessageMixin, CreateView):
 
     # Redireccionamos a la página principal luego de crear un registro
     def get_success_url(self):        
-        return reverse('readproduct') # Redireccionamos a la vista principal 'leer'
+        return reverse('productList') # Redireccionamos a la vista principal 'leer'
     
 class ProductDetail(DetailView): 
     model = agricultural_product 
@@ -42,7 +39,7 @@ class ProductUpdate(SuccessMessageMixin, UpdateView):
 
     # Redireccionamos a la página principal luego de actualizar un registro
     def get_success_url(self):               
-        return reverse('readproduct') # Redireccionamos a la vista principal 'leer'
+        return reverse('productList') # Redireccionamos a la vista principal 'leer'
     
 class ProductDelete(SuccessMessageMixin, DeleteView): 
     model = agricultural_product 
@@ -53,4 +50,4 @@ class ProductDelete(SuccessMessageMixin, DeleteView):
     def get_success_url(self): 
         success_message = 'Producto Eliminado Correctamente !' 
         messages.success (self.request, (success_message))       
-        return reverse('readproduct') # Redireccionamos a la vista principal 'leer'
+        return reverse('productList') # Redireccionamos a la vista principal 'leer'

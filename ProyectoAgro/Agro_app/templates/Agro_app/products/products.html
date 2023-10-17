@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    {% extends 'Agro_app/base.html' %}
+    {% load bootstrap4 %}
+    {% load widget_tweaks %}
+    {% load static %}
+    {% bootstrap_css %}
+</head>
+<body>
+    {% block content %}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <h1 class="mb-4">Catálogo de productos agrícolas</h1>
+                <a href="{% url 'productCreate' %}" class="btn btn-primary mb-3">Crear Nuevo producto</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            {% for agricultural_product in object_list %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+
+                    <img src="{{ agricultural_product.image.url }}" alt="{{ agricultural_product.name }}" class="card-img-top">
+                    
+                  
+                    <div class="card-body">
+                        <h5 class="card-title">{{ agricultural_product.name }}</h5>
+                        <p class="card-text"><strong>Precio: ${{ agricultural_product.price }}</strong></p>
+                        <p class="card-text"><strong>Stock: {{ agricultural_product.stock }} lbs</strong></p>
+                        <a href="{% url 'productDetails' agricultural_product.id %}" class="btn btn-success btn-sm">Detalles</a>
+                        <form method="POST" action="{% url 'productDelete' agricultural_product.id %}">
+                            <button class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');" type="submit">Eliminar</button>
+                            {% csrf_token %}             
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% bootstrap_javascript jquery='full' %}
+    {% endblock %}
+</body>
+</html>

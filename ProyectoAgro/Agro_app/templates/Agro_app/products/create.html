@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear producto</title>
+  {% extends 'Agro_app/base.html' %}
+  
+  {% load bootstrap4 %}
+  {% bootstrap_css %}
+  {% load widget_tweaks %}
+  {% load static %}
+
+</head>
+<body>
+  {% block content %}
+    <div class="container mt-5">
+        <h2>Crear Producto</h2>
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}" class="form-label">Nombre</label>
+            {{ form.name|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.price.id_for_label }}" class="form-label">Precio</label>
+            {{ form.price|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}" class="form-label">Descripcion</label>
+            {{ form.description|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.stock.id_for_label }}" class="form-label">Stock</label>
+            {{ form.stock|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            <label for="image" class="font-weight-bold">Imagen</label>
+            {{ form.image|add_class:"form-control mb-3" }} <!-- Usamos la librería 'widget_tweaks' para crear esta caja de texto -->
+        </div>
+        <button type="submit" class="btn btn-primary">Crear Producto</button>
+        <a href="{% url 'productList' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+    {% bootstrap_javascript jquery='full' %}
+  {% endblock %} 
+</body>
+</html>
