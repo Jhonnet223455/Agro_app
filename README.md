@@ -14,3 +14,10 @@ AgroBlock está dirigido a los agricultores con la finalidad de realizar sus ven
 
 Licencia:
 Este proyecto se comparte bajo la licencia MIT para garantizar su uso y modificación bajo ciertas condiciones.
+
+Requisitos:
+
+pip install django-widget-tweaks
+pip install django-bootstrap4
+pip install psycopg2-binary
+python -m pip install Pillow
