@@ -1,10 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles</title>
+    {% extends 'Agro_app/base.html' %}
+    
+    {% load bootstrap4 %}
+    {% load static %}
+    {% bootstrap_css %}
 
+    <style>
+        .user-details {
+            margin-top: 20px;
+        }
 
-{% extends 'Agro_app/base.html' %}
+        .user-details h4 {
+            font-size: 24px;
+        }
 
-{% block content %}
+        .font-weight-bold {
+            font-weight: bold;
+        }
 
-<h1>Agro App</h1>
+        .user-image {
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <div class="container user-details">
+        <h4>Detalles de Producto</h4>
 
-{% endblock %}
- 
+        <div class="row">
+            <div class="col-md-6">
+                <p><span class="font-weight-bold">Nombre:</span><br>{{ object.name }}</p>
+                <p><span class="font-weight-bold">Precio:</span><br>{{ object.price }}</p>
+                <p><span class="font-weight-bold">Descripcion:</span><br>{{ object.description }}</p>
+                <p><span class="font-weight-bold">Stock:</span><br>{{ object.stock }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><span class="font-weight-bold">Imagen:</span></p>
+                <img src="{{ object.image.url }}" alt="{{ object.name }}" class="img-fluid user-image">
+            </div>
+        </div>
+
+        <a href="../" class="btn btn-primary">Volver</a>
+    </div>
+    {% bootstrap_javascript jquery='full' %}
+    {% endblock %}
+</body>
+</html> 
