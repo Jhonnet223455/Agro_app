@@ -21,8 +21,8 @@ class agricultural_product (models.Model):
     stock = models.IntegerField()
     image = models.ImageField(upload_to='products', null=True)
 
-class Meta:
-    db_table = 'agricultural_product'    
+    class Meta:
+        db_table = 'agricultural_product'    
 
 class transaction(models.Model):
     id = models.AutoField(primary_key=True)
