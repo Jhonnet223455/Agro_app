@@ -1,19 +1,27 @@
 {% extends 'Agro_app/base.html' %}
 
+{% load static %}
+
 {% block content %}
-<h3>login</h3>
 
-<br>
-
-<form action="{% url 'login' %}" method="post">
-    {% csrf_token %}
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username" placeholder="username">
-    <br>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" placeholder="password">
-    <br>
-    <input type="submit" value="login">
-
+<main class="form-signin w-100 m-auto">
+    <form action="" method="post">
+      {% csrf_token %}
+    
+      <h1 class="h3 mb-3 fw-normal">Iniciar Sesión</h1>
+  
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label float-md-start">Nombre de Usuario</label>
+        <input type="text" class="form-control" name="username" id="exampleInputEmail1">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label float-md-start">Contraseña</label>
+        <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+      </div>
+  
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar Sesión</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+    </form>
+  </main>
 
 {% endblock %}
