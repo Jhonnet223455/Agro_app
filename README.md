@@ -15,6 +15,11 @@ AgroBlock está dirigido a los agricultores con la finalidad de realizar sus ven
 Licencia:
 Este proyecto se comparte bajo la licencia MIT para garantizar su uso y modificación bajo ciertas condiciones.
 
+Contribuyentes:
+
+- Jhon Mario Diaz Feliciano - 88819
+- Juan David Serna Quilindo - 69653
+
 Requisitos:
 
 pip install django-widget-tweaks
