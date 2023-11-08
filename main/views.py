@@ -3,8 +3,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from .forms import ProductForm
+from .forms import ProductForm, FarmerForm
 from django.contrib.auth.decorators import login_required
+from .decorators import is_not_farmer
 from .models import Agricultural_product, Farmer
 
 
@@ -25,8 +26,31 @@ def profile(request):
         'products_list': products_list
     })
 
+def unauthorized(request):
+    return render(request, 'unauthorized_page.html')
 
 
+@is_not_farmer
+@login_required
+def farmer_register(request):
+    if request.method == 'GET':
+        return render(request, 'farmer_register.html', {
+            'form': FarmerForm
+        })
+    else:
+        try:
+            form = FarmerForm(request.POST)
+            if form.is_valid():
+                farmer = form.save(commit=False)
+                farmer.user = request.user  # Asignar el usuario actual al campo 'user' del Farmer
+                farmer.saldo = 0
+                farmer.save()
+                return redirect('profile')
+        except ValueError:
+            return render(request, 'farmer_register.html', {
+                'form': FarmerForm,
+                "error": "Invalid data"
+            })
 
 
 def products(request):

@@ -4,7 +4,7 @@
     <h1 class="title">PERFIL</h1>
 
     <h1 class="title">{{user.username }}</h1>
-    <button ><a href="{%  %}">Editar Perfil</a></button>
+    
 
     
     {% if user.farmer_set.all %}
@@ -19,6 +19,8 @@
                 </a>
             </div>
         {% endfor %}
-
+    
+    {% else %}
+        <button ><a href="{% url 'farmer_register' %}">Aplicar a Farmer</a></button>
     {% endif %}
 {% endblock %}
