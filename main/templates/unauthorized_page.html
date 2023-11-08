@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <h1 class="title">ACCESO NO AUTORIZADO</h1>
-    <img class="unauthorized-img" src="{% static 'unauthorized.png' %}"></img>
+    <div class="container">
+        <div class="col-md-12 text-center">
+            <h1 class="title">ACCESO NO AUTORIZADO</h1>
+            <img class="imgunauthorized" src="{% static 'unauthorized.png' %}"></img>
+        </div>
+    </div>
+    
 {% endblock %}
