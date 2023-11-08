@@ -1,0 +1,53 @@
+    /* Estilo para el cuerpo */
+    body {
+        background-image: url('/static/background.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    body::before {
+        content: "";
+        background-color: rgba(0, 0, 0, 0.7);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+
+    /* Estilo para la barra de navegación */
+    .navbar {
+        background-color: transparent;
+        display: flex;
+        justify-content: space-evenly; /* Distribuye elementos a los extremos */
+        align-items: center; /* Centra verticalmente los elementos */
+        
+    }
+
+
+    .navbar-brand {
+        color: #fff; /* Cambia el color del texto del logotipo */
+        font-weight: bold; /* Cambia la fuente o estilo del texto */
+    }
+
+    .navbar-nav .nav-item {
+        margin: 30px; /* Agrega margen entre elementos del menú */
+    }
+
+    .nav-link {
+        color: #fff; /* Cambia el color del texto del enlace */
+        text-decoration: none; /* Elimina la subraya de los enlaces */
+    }
+
+    /* Estilo para el enlace activo (cuando se encuentra en la página actual) */
+    .nav-item.active .nav-link {
+        color: #ffffff; /* Cambia el color del enlace activo según tu preferencia */
+        font-weight: bold; /* Puedes resaltar el enlace activo de alguna manera */
+    }
+
+
+    .title {
+        color: white;
+        font-weight: bold;
+    }

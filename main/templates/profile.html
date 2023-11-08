@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="title">PERFIL</h1>
+
+    <h1 class="title">{{user.username }}</h1>
+    <button ><a href="{%  %}">Editar Perfil</a></button>
+
+    
+    {% if user.farmer_set.all %}
+
+        {% for agricultural_product in products_list %}
+            <div class="product-card">
+                <a href="{% url 'product_detail' agricultural_product.id %}">
+                    <img src="/static/descargar.png" class="product-image" style="max-width: 200px; max-height: 150px; display: block;">
+                    <p class="product-name">{{ agricultural_product.name }}</p>
+                    <p class="product-price">{{ agricultural_product.price }}</p>
+                    <p class="product-stock">{{ agricultural_product.stock }}</p>
+                </a>
+            </div>
+        {% endfor %}
+
+    {% endif %}
+{% endblock %}

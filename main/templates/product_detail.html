@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="product-details">
+        <h1 class="title">{{ product.name }}</h1>
+        <div class="task-info">
+            <div class="info-item">
+                <strong>Descripción:</strong>
+                <p>{{ product.description }}</p>
+            </div>
+            
+        </div>
+        <div>
+            <div class="info-item">
+                <strong>Precio:</strong>
+                <p>{{ product.price }}</p>
+            </div>
+            <div class="info-item">
+                <strong>Stock:</strong>
+                <p>{{ product.stock }}</p>
+            </div>
+            
+            {% if user == product.seller.user %}
+                <button><a href="{% url 'product_edit' product.id %}">Editar</a></button>
+                <button><a href="{% url 'product_delete' product.id %}">Eliminar</a></button>
+            {% endif %}
+
+
+            {% if user.is_authenticated %}
+                <button>Comprar</button>
+                <button>Añadir al carrito</button>
+                <button>Fav</button>
+            {% else %}
+                <button><a href="{% url 'signin' %}">Comprar</a></button>
+                <button><a href="{% url 'signin' %}">Añadir al carrito</a></button>
+                <button><a href="{% url 'signin' %}">Fav</a></button>
+            {% endif %}
+            
+        </div>
+    </div>
+{% endblock %}

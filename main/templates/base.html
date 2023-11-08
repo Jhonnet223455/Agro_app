@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroBlock</title>
+    {% load bootstrap4 %} 
+    {% bootstrap_css %}
+    {% load widget_tweaks %}
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="/">AgroBlock</a>
+        <ul class="navbar-nav   ">
+
+            <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+
+            <li class="nav-item {% if request.path == '/products/' %}active{% endif %}">
+                <a class="nav-link" href="/products/">Products</a>
+            </li>
+             
+
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout/">Logout</a>
+                </li>
+
+            {% else %}
+                
+                <li class="nav-item {% if request.path == '/signin/' %}active{% endif %}">
+                    <a class="nav-link" href="/signin/">SignIn</a>
+                </li>
+
+                <li class="nav-item {% if request.path == '/signup/' %}active{% endif %}">
+                    <a class="nav-link" href="/signup/">SignUp</a>
+                </li>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile/">Profile</a>
+                </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
