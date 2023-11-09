@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from .forms import ProductForm, FarmerForm
 from django.contrib.auth.decorators import login_required
-from .decorators import is_not_farmer
+from .decorators import is_not_farmer, is_farmer
 from .models import Agricultural_product, Farmer
 
 
@@ -60,25 +60,26 @@ def products(request):
         'products_list' : products_list
     })
 
-
+@is_farmer
 @login_required
 def product_create(request):
-    if request.method == 'GET':
-        return render(request, 'product_create.html', {
-            'form': ProductForm
-        })
-    else:
-        try:
-            form = ProductForm(request.POST)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
             new_product = form.save(commit=False)
-            new_product.seller = request.user
+
+            # Obtén el Farmer asociado al usuario autenticado
+            farmer = Farmer.objects.get(user=request.user)
+
+            new_product.seller = farmer
             new_product.save()
+
             return redirect('products')
-        except ValueError:
-            return render(request, 'product_create.html', {
-                'form': ProductForm,
-                "error": "Invalid data"
-            })
+    else:
+        form = ProductForm()
+
+    return render(request, 'product_create.html', {'form': form})
+
         
 
 def product_detail(request, product_id):

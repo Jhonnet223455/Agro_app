@@ -26,4 +26,4 @@ pip install django
 pip install django-widget-tweaks
 pip install django-bootstrap4
 pip install psycopg2-binary
-python -m pip install Pillow
+pip install Pillow
