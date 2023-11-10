@@ -3,11 +3,11 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from .forms import ProductForm, FarmerForm
+from .forms import ProductForm, FarmerForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 from .decorators import is_not_farmer, is_farmer
 from .models import Agricultural_product, Farmer
-
+from django.contrib import messages
 
 def home(request):
     return render(request, 'home.html')
@@ -22,9 +22,21 @@ def profile(request):
         farmer = None
         products_list = None
 
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Tu perfil ha sido actualizado exitosamente.')
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=request.user)
+
     return render(request, 'profile.html', {
-        'products_list': products_list
+        'products_list': products_list,
+        'form': form
     })
+
+
 
 def unauthorized(request):
     return render(request, 'unauthorized_page.html')

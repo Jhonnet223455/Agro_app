@@ -5,6 +5,16 @@
 
     <h1 class="title">{{user.username}}</h1>
 
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <button>
+            Actualizar
+        </button>
+    </form>
+
+
     {% if user.farmer_set.all %}
         <div class="col-md-12 text-center">
             <a href="{% url 'product_create' %}" class="btn btn-primary mb-1">Crear Nuevo producto</a>
