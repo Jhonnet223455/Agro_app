@@ -1,37 +1,42 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
     <h1 class="title">PERFIL</h1>
 
     <h1 class="title">{{user.username}}</h1>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+    
+            <button>
+                Actualizar
+            </button>
+        </form>
+    </div>
+    
 
-        <button>
-            Actualizar
-        </button>
-    </form>
-
-
-    {% if user.farmer_set.all %}
+    <div>
+        {% if user.farmer_set.all %}
         <div class="col-md-12 text-center">
             <a href="{% url 'product_create' %}" class="btn btn-primary mb-1">Crear Nuevo producto</a>
         </div>
 
-        {% for agricultural_product in products_list %}
-            <div class="product-card">
-                <a href="{% url 'product_detail' agricultural_product.id %}">
-                    <img src="/static/descargar.png" class="product-image" style="max-width: 200px; max-height: 150px; display: block;">
-                    <p class="product-name">{{ agricultural_product.name }}</p>
-                    <p class="product-price">{{ agricultural_product.price }}</p>
-                    <p class="product-stock">{{ agricultural_product.stock }}</p>
-                </a>
-            </div>
-        {% endfor %}
+            {% for agricultural_product in products_list %}
+                <div class="product-card">
+                    <a href="{% url 'product_detail' agricultural_product.id %}">
+                        <img src="{% static ''%}{{agricultural_product.image}}" alt="{{agricultural_product.name}}" class="img-fluid" width="150px">
+                        <p class="product-name">{{ agricultural_product.name }}</p>
+                        <p class="product-price">{{ agricultural_product.price }}</p>
+                        <p class="product-stock">{{ agricultural_product.stock }}</p>
+                    </a>
+                </div>
+            {% endfor %}
     
-    {% else %}
-        <button ><a href="{% url 'farmer_register' %}">Aplicar a Farmer</a></button>
-    {% endif %}
+        {% else %}
+            <button ><a href="{% url 'farmer_register' %}">Aplicar a Farmer</a></button>
+        {% endif %}
+    </div>
+    
 {% endblock %}

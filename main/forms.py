@@ -18,6 +18,6 @@ class UserProfileForm(ModelForm):
         model = User
         fields = ('first_name', 'last_name', 'email')
 
-    def __init__(self, *args, **kwargs):
-        super(UserProfileForm, self).__init__(*args, **kwargs)
-        self.fields['email'].widget.attrs['readonly'] = True  # Si deseas hacer el campo de correo electrónico solo de lectura
+    #def __init__(self, *args, **kwargs):
+    #    super(UserProfileForm, self).__init__(*args, **kwargs)
+    #    self.fields['email'].widget.attrs['readonly'] = True  # Si deseas hacer el campo de correo electrónico solo de lectura

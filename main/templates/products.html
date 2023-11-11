@@ -20,7 +20,7 @@
             {% for agricultural_product in products_list %}
                 <div class="product-card">
                     <a href="{% url 'product_detail' agricultural_product.id %}">
-                        <img src="{% static 'uploads/'%}{{agricultural_product.image}}" alt="{{agricultural_product.name}}" class="img-fluid" width="150px">
+                        <img src="{% static ''%}{{agricultural_product.image}}" alt="{{agricultural_product.name}}" class="img-fluid" width="150px">
                         <p class="product-name">{{ agricultural_product.name }}</p>
                         <p class="product-price">{{ agricultural_product.price }}</p>
                         <p class="product-stock">{{ agricultural_product.stock }}</p>
