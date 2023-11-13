@@ -2,33 +2,52 @@
 {% load static %}
 {% block content %}
 
-    <h1 class="title">PRODUCTOS</h1>
-
-    <div class="container mt-4">
+    <h1 class="title text-center">CATÁLOGO</h1>
+    <div class="container justify-content-end">
+        <form class="form-inline justify-content-end" method="GET" action="/products/">
+            <div class="d-flex">
+                <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+    
+    <div class="container mt-3 mb-3">
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
-                <h1 class="title">Catálogo de productos agrícolas</h1>
                 {% if user.farmer_set.all %}
-                    <a href="{% url 'product_create' %}" class="btn btn-primary mb-3">Crear Nuevo producto</a>
+                    <a href="{% url 'product_create' %}" class="btn btn-primary mb-3">Crear Nuevo Producto</a>
                 {% endif %}
             </div>
         </div>
     </div>
 
     <div class="container">
-        <div class="row">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-lg-4 row-cols-lg-5">
             {% for agricultural_product in products_list %}
-                <div class="product-card">
-                    <a href="{% url 'product_detail' agricultural_product.id %}">
-                        <img src="{% static ''%}{{agricultural_product.image}}" alt="{{agricultural_product.name}}" class="img-fluid" width="150px">
-                        <p class="product-name">{{ agricultural_product.name }}</p>
-                        <p class="product-price">{{ agricultural_product.price }}</p>
-                        <p class="product-stock">{{ agricultural_product.stock }}</p>
-                    </a>
-                    
+                <div class="col mb-4">
+                    <div class="card mb-4 bg-dark">
+                        <a style="text-decoration: none;" href="{% url 'product_detail' agricultural_product.id %}">
+                            <div class="row shadow">
+                                <div class="col m-2">
+                                    <img src="{{ agricultural_product.image.url }}" alt="{{ agricultural_product.name }}" class="card-img-top" style="height: 225px; width: 100%; display: block; object-fit: scale-down;">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col m-2">
+                                    <h5 class="card-title">{{ agricultural_product.name }}</h5>
+                                    <p class="card-text">Precio: {{ agricultural_product.price }}</p>
+                                    <p class="card-text">Stock: {{ agricultural_product.stock }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             {% endfor %}
         </div>
     </div>
 
+
 {% endblock %}
+
+

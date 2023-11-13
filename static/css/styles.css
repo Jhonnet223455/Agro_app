@@ -1,14 +1,13 @@
     /* Estilo para el cuerpo */
     body {
-        background-image: url('/static/background.jpg');
+        background-color: rgb(77, 77, 77);
         background-size: cover;
-        background-repeat: no-repeat;
     }
 
     body::before {
         content: "";
         background-color: rgba(0, 0, 0, 0.7);
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;

@@ -1,19 +1,53 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="title">Crear producto</h1>
 
-    {{error}}
 
-    <form action="{% url 'product_create' %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+<section class=" gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+                        <form action="{% url 'product_create' %}" method="POST" enctype="multipart/form-data">
+                            <h2 class="fw-bold mb-4 text-uppercase">CREAR PRODUCTO</h2>
+                            {{error}}
+                            {% csrf_token %}
 
-        {{form.as_p}}
+                            <div class="form-outline form-white mb-4">
+                                <input type="text" name="name" placeholder="Product Name" class="form-control" />
+                            </div>
+                        
+                            <div class="form-outline form-white mb-4">
+                                <textarea name="description" placeholder="Description" class="form-control" rows="5"></textarea>
+                            </div>
+                        
+                            <div class="form-outline form-white mb-4">
+                                <input type="number" name="price" placeholder="Price" class="form-control" />
+                            </div>
+                        
+                            <div class="form-outline form-white mb-4">
+                                <input type="number" name="stock" placeholder="Stock" class="form-control" />
+                            </div>
+                        
+                            <div class="form-outline form-white mb-4">
+                                <input type="file" name="image" class="form-control" accept="image/*" />
+                            </div>                        
 
-        <button>
-            Agregar
-        </button>
+                            <div>
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">CREAR PRODUCTO</button>
+                            </div>
+                            
+                            <a href="javascript:history.go(-1)">Regresar</a>
 
-    </form>
-    
+                        </form>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

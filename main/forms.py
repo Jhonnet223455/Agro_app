@@ -1,6 +1,5 @@
 from django.forms import ModelForm
 from .models import Agricultural_product, Farmer
-from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 
 class ProductForm(ModelForm):
@@ -16,7 +15,7 @@ class FarmerForm(ModelForm):
 class UserProfileForm(ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('username', 'first_name', 'last_name', 'email')
 
     #def __init__(self, *args, **kwargs):
     #    super(UserProfileForm, self).__init__(*args, **kwargs)

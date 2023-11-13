@@ -7,7 +7,8 @@ from .forms import ProductForm, FarmerForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 from .decorators import is_not_farmer, is_farmer
 from .models import Agricultural_product, Farmer
-from django.contrib import messages
+from django.contrib.auth.hashers import check_password
+
 
 def home(request):
     return render(request, 'home.html')
@@ -22,19 +23,41 @@ def profile(request):
         farmer = None
         products_list = None
 
+    user_info = {
+        'username' : request.user.username,
+        'first_name': request.user.first_name,
+        'last_name': request.user.last_name,
+        'email': request.user.email,
+    }
+    form = UserProfileForm(initial=user_info)
+
+    if is_farmer:
+        form.fields['email'].widget.attrs['readonly'] = True
+        
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=request.user)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Tu perfil ha sido actualizado exitosamente.')
-            return redirect('profile')
+            password = request.POST['password']
+            if check_password(password, request.user.password):
+                form.save()
+                return redirect('profile')
+            else:
+                return render(request, 'profile.html', {
+                'products_list': products_list,
+                'form': form,
+                'error' : 'Verifica tu contraseña'
+                })
+        else:
+            return render(request, 'profile.html', {
+                'products_list': products_list,
+                'form': form,
+                'error' : 'Verifique los datos ingresados'
+            })
     else:
-        form = UserProfileForm(instance=request.user)
-
-    return render(request, 'profile.html', {
-        'products_list': products_list,
-        'form': form
-    })
+        return render(request, 'profile.html', {
+            'products_list': products_list,
+            'form': form
+        })
 
 
 
@@ -66,11 +89,15 @@ def farmer_register(request):
 
 
 def products(request):
+    query = request.GET.get('q')
+
     products_list = Agricultural_product.objects.all()
 
-    return render(request, 'products.html', {
-        'products_list' : products_list
-    })
+    if query:
+        products_list = products_list.filter(name__icontains=query)
+
+    return render(request, 'products.html', {'products_list': products_list})
+
 
 @is_farmer
 @login_required
@@ -172,17 +199,15 @@ def signout(request):
 def signin(request):
 
     if request.method == 'GET':
-        return render(request, 'signin.html', {
-            'form': AuthenticationForm
-        })
+        return render(request, 'signin.html')
 
     else:
+        print(request.POST)
         user = authenticate(
             request, username=request.POST['username'], password=request.POST['password'])
         
         if user is None:
             return render(request, 'signin.html', {
-                'form' : AuthenticationForm,
                 'error' : 'User or password is incorrect'
             })
         else:
