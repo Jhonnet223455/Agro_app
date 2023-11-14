@@ -1,7 +1,9 @@
 def total_order(request):
     total = 0
-    if request.session["cart"]:
+    if "cart" in request.session.keys():
         for key, value in request.session["cart"].items():
-            total += value["accumulated"]
+            total += float(value["accumulated"])
 
-    return total
+    return {
+        'total_order': total   
+    }

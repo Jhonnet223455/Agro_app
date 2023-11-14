@@ -1,29 +1,29 @@
-class shopping_cart:
+class ShoppingCart:
     def __init__(self, request):
         self.request = request
         self.session = request.session
-        
-        cart = self.session["cart"]
-        
-        if not cart:
-            self.session["cart"] = {}
-            self.cart = self.session["cart"]
-        else:
-            self.cart = cart
+
+        self.cart = self.session.get("cart")
+
+        if not self.cart:
+            self.cart = {}
+            self.session["cart"] = self.cart
+
         
     def add(self, product):
         id = str(product.id)
         if id not in self.cart.keys():
             self.cart[id] = {
+                "id" : int(product.id),  
                 "name" : product.name,
-                "price" : product.price,
+                "price" : float(product.price),
                 "stock" : product.stock,
-                "accumulated" : product.precio,
+                "accumulated" : float(product.price),
                 "amount" : 1,
             }
         else:
             self.cart[id]["amount"] += 1
-            self.cart[id]["accumulated"] += product.price
+            self.cart[id]["accumulated"] += float(product.price)
 
         self.save()
 
@@ -43,7 +43,7 @@ class shopping_cart:
         id = str(product.id)
 
         self.cart[id]["amount"] -= 1
-        self.cart[id]["accumulated"] -= product.price
+        self.cart[id]["accumulated"] -= float(product.price)
 
         if self.cart[id]["amount"] <= 0:
             del self.cart[id]

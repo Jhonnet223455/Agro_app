@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .decorators import is_not_farmer, is_farmer
 from .models import Agricultural_product, Farmer
 from django.contrib.auth.hashers import check_password
+from main.util import ShoppingCart
 
 
 def home(request):
@@ -89,10 +90,11 @@ def farmer_register(request):
 
 
 def products(request):
+
     query = request.GET.get('q')
 
     products_list = Agricultural_product.objects.all()
-
+    
     if query:
         products_list = products_list.filter(name__icontains=query)
 
@@ -213,3 +215,37 @@ def signin(request):
         else:
             login(request, user)
             return redirect('home')
+
+
+
+def shopping_cart(request):
+    products = Agricultural_product.objects.all()
+    return render(request, 'shopping_cart.html',{
+        'products_list' : products
+    })
+
+def add_to_cart(request, product_id):
+    cart = ShoppingCart(request)
+    product = Agricultural_product.objects.get(id=product_id)
+    cart.add(product)
+    return redirect(request.META.get('HTTP_REFERER', 'products'))
+
+def subtract_from_cart(request, product_id):
+    cart = ShoppingCart(request)
+    product = Agricultural_product.objects.get(id=product_id)
+    cart.subtract(product)
+    return redirect(request.META.get('HTTP_REFERER', 'products'))
+
+def delete_from_cart(request, product_id):
+    cart = ShoppingCart(request)
+    product = Agricultural_product.objects.get(id=product_id)
+    cart.delete(product)
+    return redirect(request.META.get('HTTP_REFERER', 'products'))
+
+def clear_cart(request):
+    cart = ShoppingCart(request)
+    cart.clear()
+    return redirect(request.META.get('HTTP_REFERER', 'products'))
+
+def payment(request):
+    return

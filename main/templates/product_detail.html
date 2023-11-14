@@ -26,13 +26,13 @@
             {% endif %}
 
 
-            {% if user.is_authenticated %}
+            {% if not user.is_authenticated %}
                 <button>Comprar</button>
                 <button>Añadir al carrito</button>
                 <button>Fav</button>
             {% else %}
                 <button><a href="{% url 'signin' %}">Comprar</a></button>
-                <button><a href="{% url 'signin' %}">Añadir al carrito</a></button>
+                <button><a href="{% url 'add_to_cart' product.id %}">Añadir al carrito</a></button>
                 <button><a href="{% url 'signin' %}">Fav</a></button>
             {% endif %}
             
