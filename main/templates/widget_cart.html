@@ -51,8 +51,14 @@
                             <th scope="row">Total:</th>
                             <td colspan="2">$ {{ total_order }}</td>
                         </tr>
+                        
                     </tbody>
                 </table>
+                <div class="m-2 text-center">
+                    <button class="btn btn-success"><a href="{% url 'payment' %}" style="color: white; text-decoration: none;">GO PAY</a></button>
+                    <button class="btn btn-danger"><a href="{% url 'clear_cart' %}" style="color: white; text-decoration: none;">CLEAR</a></button>
+                </div>
+
             </div>
         </div>
     </div>

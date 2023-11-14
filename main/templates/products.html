@@ -39,11 +39,19 @@
                                     <p class="card-text">Precio: {{ agricultural_product.price }}</p>
                                     <p class="card-text">Stock: {{ agricultural_product.stock }}</p>
                                 </div>
-                                <div class="col text-center m-4">
-                                    <button class="btn btn-primary">
-                                        <a href="{% url 'add_to_cart' agricultural_product.id %}" style="color: azure; text-decoration: none;">Add to Cart</a>
-                                    </button>
-                                </div>
+                                {% if user.is_authenticated%}
+                                    <div class="col text-center m-4">
+                                        <button class="btn btn-primary">
+                                            <a href="{% url 'add_to_cart' agricultural_product.id %}" style="color: azure; text-decoration: none;">Add to Cart</a>
+                                        </button>
+                                    </div>
+                                {% else %}
+                                    <div class="col text-center m-4">
+                                        <button class="btn btn-primary">
+                                            <a href="{% url 'signup'%}" style="color: azure; text-decoration: none;">Add to Cart</a>
+                                        </button>
+                                    </div>
+                                {% endif %}
                             </div>
                         </a>
                     </div>

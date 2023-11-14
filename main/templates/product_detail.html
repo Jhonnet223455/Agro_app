@@ -21,19 +21,19 @@
             </div>
             
             {% if user == product.seller.user %}
-                <button><a href="{% url 'product_edit' product.id %}">Editar</a></button>
-                <button><a href="{% url 'product_delete' product.id %}">Eliminar</a></button>
+                <button><a href="{% url 'product_edit' product.id %}">Edit</a></button>
+                <button><a href="{% url 'product_delete' product.id %}">Delete</a></button>
             {% endif %}
 
 
             {% if not user.is_authenticated %}
-                <button>Comprar</button>
-                <button>Añadir al carrito</button>
-                <button>Fav</button>
+                <button><a href="/signup/" style="text-decoration: none;">Buy</a></button>
+                <button><a href="/signup/" style="text-decoration: none;">Añadir al carrito</a></button>
+                <button><a href="/signup/" style="text-decoration: none;">Fav</a></button>
             {% else %}
-                <button><a href="{% url 'signin' %}">Comprar</a></button>
-                <button><a href="{% url 'add_to_cart' product.id %}">Añadir al carrito</a></button>
-                <button><a href="{% url 'signin' %}">Fav</a></button>
+                <button><a href="{% url 'buy' product.id %}" style="text-decoration: none;">Buy</a></button>
+                <button><a href="{% url 'add_to_cart' product.id %}" style="text-decoration: none;">Add to cart</a></button>
+                <button><a href="{% url 'signin' %}" style="text-decoration: none;">Fav</a></button>
             {% endif %}
             
         </div>

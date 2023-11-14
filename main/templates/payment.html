@@ -2,6 +2,101 @@
 {% load static %}
 
 {% block content %}
+    <div class="container modal-body dark-theme">
+        <table class="table table-hover table-striped table-dark border-2">
+            <thead>
+                <tr>
+                    <th scope="row" colspan="4" class="text-center">CARRITO</th>
+                </tr>
+                <tr>
+                    <th scope="col">NOMBRE</th>
+                    <th scope="col">PRECIO</th>
+                    <th scope="col">CANTIDAD</th>
+                    <th scope="col">PARCIAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if request.session.cart.items %}
+                    {% for key, value in request.session.cart.items %}
+                        <tr>
+                            <td>{{ value.name }}</td>
+                            <td>{{ value.price }}</td>
+                            <td>{{ value.amount }}
+                                <a href="{% if value.id %}{% url 'add_to_cart' value.id %}{% endif %}" class="badge btn btn-success">+</a>
+                                <a href="{% if value.id %}{% url 'subtract_from_cart' value.id %}{% endif %}" class="badge btn btn-secondary">-</a>
+                                <a href="{% if value.id %}{% url 'subtract_from_cart' value.id %}{% endif %}" class="badge btn btn-danger">x</a>
+                            </td>
+                            <td>{{ value.accumulated }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <td colspan="4">
+                        <div class="alert alert-danger text-center m-2">SIN PRODUCTOS</div>
+                        <div class="text-center">
+                            <button class="btn btn-primary mt-2 mb-2"><a href="/products/" style="color:white; text-decoration: none;">IR A COMPRAR</a></button>
+                        </div>
+                    </td>
+                {% endif %}
+            
+                <tr>
+                    <th scope="row">Total:</th>
+                    <td colspan="3">$ {{ total_order }}</td>
+                </tr>
+            </tbody>
+        </table>
 
+        <section class=" gradient-custom">
+            <div class="container py-5 h-100">
+                <div class="row d-flex h-100">
+                    <div class="col-1 col-md-8 col-lg-8 col-xl-5">
+                        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                            <div class="card-body p-5">
+                                <form action="{% url 'product_create' %}" method="POST" enctype="multipart/form-data">
+                                    <h2 class="fw-bold mb-4 text-uppercase">PERSONAL INFORMATION</h2>
+                                    {{error}}
+                                    {% csrf_token %}
+        
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="text" name="name" placeholder="Full Name" class="form-control" />
+                                    </div>
+                                
+                                    <div class="form-outline form-white mb-4">
+                                        <input name="country" placeholder="Country" class="form-control" rows="5">
+                                    </div>
+                                
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="text" name="city" placeholder="City" class="form-control" />
+                                    </div>
+                                
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="text" name="address" placeholder="Address" class="form-control" />
+                                    </div>
+                                
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="text" name="phone" class="form-control" placeholder="Number Phone" />
+                                    </div>                        
+        
+                                    <div class="text-center">
+                                        <button class="text-center btn btn-outline-light btn-lg px-5" type="submit">CREAR PRODUCTO</button>
+                                    </div>
+        
+                                </form>
+                                
+        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-8 col-lg-8 col-xl-5 mb-4">
+                        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                            <div class="card-body p-5">
+                                <button class="btn btn-outline-success align-items-end"><a href="/pay/" style="color: white; text-decoration: none;">Pay</a></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        
+    </div>
 {% endblock %}

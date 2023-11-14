@@ -224,6 +224,13 @@ def shopping_cart(request):
         'products_list' : products
     })
 
+
+def buy(request, product_id):
+    cart = ShoppingCart(request)
+    product = Agricultural_product.objects.get(id=product_id)
+    cart.add(product)
+    return redirect('payment')
+
 def add_to_cart(request, product_id):
     cart = ShoppingCart(request)
     product = Agricultural_product.objects.get(id=product_id)
@@ -248,4 +255,5 @@ def clear_cart(request):
     return redirect(request.META.get('HTTP_REFERER', 'products'))
 
 def payment(request):
-    return
+    
+    return render(request, 'payment.html')
