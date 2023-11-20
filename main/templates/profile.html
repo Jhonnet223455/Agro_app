@@ -128,15 +128,16 @@
                                             Actualizar
                                         </button>
                                     </div>
-                                    <div class="mb-1">
-                                        {% if user.email == '' or user.firts_name == '' or user.last_name == '' %}
-                                            <button class="btn btn-secondary" onclick="mostrarDialogo('Completa todos tus datos antes de aplicar.')">Aplicar a Farmer</button>
-                                        {% else %}
-                                            <button class="btn btn-danger"><a style="color: inherit; text-decoration: none;" href="{% url 'farmer_register' %}">Aplicar a Farmer</a></button>
-                                        {% endif %}
-                                    </div>
                                     
                                 </form>
+
+                                <div class="mb-1">
+                                    {% if user.email == '' or user.firts_name == '' or user.last_name == '' %}
+                                        <button class="btn btn-secondary" onclick="mostrarDialogo('Completa todos tus datos antes de aplicar.')">Aplicar a Farmer</button>
+                                    {% else %}
+                                        <button class="btn btn-danger"><a style="color: inherit; text-decoration: none;" href="{% url 'farmer_register' %}">Aplicar a Farmer</a></button>
+                                    {% endif %}
+                                </div>
 
                             </div>
                         </div>

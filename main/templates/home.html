@@ -1,8 +1,56 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div>
-        <h1 class="title text-center">HOME</h1>       
-    </div> 
+    <div class="container mt-5">
+        <!-- Carrusel de productos agrícolas -->
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-5">
+                <div id="carouselExample" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for agricultural_product in products_list %}
+                            <!-- Item del carrusel -->
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <a href="{% url 'product_detail' agricultural_product.id %}">
+                                    <img src="{{ agricultural_product.image.url }}" class="d-block w-100" alt="{{ agricultural_product.name }}" style="border-radius: 3%; height: 350px;">
+                                    <div class="carousel-caption d-md-block text-white">
+                                        <h5>{{ agricultural_product.name }}</h5>
+                                        <p>{{ agricultural_product.description }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Siguiente</span>
+                    </a>
+                </div>
+            </div>
+        </div>
 
+        
+        <div class="row mt-5">
+            <div class="col-md-12 text-center text-white">
+                <h1 class="text-uppercase">Sobre Agroblock</h1>
+                <p class="lead">Agroblock es una plataforma innovadora diseñada para transformar la forma en que los agricultores y consumidores se conectan en el mundo digital. En el corazón de nuestra misión se encuentra el compromiso de facilitar el acceso a productos agrícolas frescos y sostenibles, fomentando la transparencia y la eficiencia en la cadena de suministro.</p>
+            </div>
+        </div>
+    </div>
+
+    
+    <script>
+        $('.carousel').carousel({
+            interval: 3000 
+        });
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
 {% endblock %}

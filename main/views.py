@@ -12,7 +12,8 @@ from main.util import ShoppingCart
 
 
 def home(request):
-    return render(request, 'home.html')
+    products_list = Agricultural_product.objects.all()
+    return render(request, 'home.html', {'products_list': products_list})
 
 
 @login_required
@@ -202,7 +203,6 @@ def signin(request):
 
     if request.method == 'GET':
         return render(request, 'signin.html')
-
     else:
         print(request.POST)
         user = authenticate(

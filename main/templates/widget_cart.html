@@ -1,10 +1,11 @@
 {% load static %}
 
-<div class="fixed-bottom m-3 ">
-    <button type="button" class="btn btn-primary" style="border-radius: 100%;" data-toggle="modal" data-target="#cartModal">
-        Carrito
+<div class="fixed-bottom m-3">
+    <button type="button" class="btn btn-primary rounded-pill shadow" data-toggle="modal" data-target="#cartModal">
+        <img src="{% static 'cart.png' %}" alt="Carrito" class="mr-1" style="height:30px; width:auto;">
     </button>
 </div>
+
 
 <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
